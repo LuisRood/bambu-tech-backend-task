@@ -31,4 +31,4 @@ jobs:
           # Aquí el robot saca la llave secreta de la caja fuerte que configuramos en el Paso 2
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         # El comando de abajo hace la magia: limpia, compila, corre tests y envía a Sonar
-        run: mvn clean verify sonar:sonar -Dsonar.token=$SONAR_TOKEN
+        run: mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar -Dsonar.token=$SONAR_TOKEN
