@@ -1,34 +1,27 @@
 name: Revisión de Calidad con SonarQube
 
-# 1. ¿Cuándo debe despertar el robot?
 on:
   push:
-    branches: [ "master" ] # Cuando subas código a la rama main
+    branches: [ "master" ]
   pull_request:
-    branches: [ "master" ] # O cuando hagas un Pull Request hacia main
+    branches: [ "master" ]
 
-# 2. ¿Qué tareas va a realizar?
 jobs:
   build-and-analyze:
-    runs-on: ubuntu-latest # Le pedimos a GitHub que nos preste una computadora con Linux
+    runs-on: ubuntu-latest
 
     steps:
-      # Paso A: El robot descarga tu código del repositorio
       - name: Descargar el código
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      # Paso B: El robot instala Java 17 en la computadora que nos prestaron
       - name: Instalar Java 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
 
-      # Paso C: El robot compila el código y lo envía a SonarQube
       - name: Compilar y enviar a SonarQube
         env:
-          # Aquí el robot saca la llave secreta de la caja fuerte que configuramos en el Paso 2
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        # El comando de abajo hace la magia: limpia, compila, corre tests y envía a Sonar
         run: mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar -Dsonar.token=$SONAR_TOKEN
