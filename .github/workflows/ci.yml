@@ -3,9 +3,9 @@ name: Revisión de Calidad con SonarQube
 # 1. ¿Cuándo debe despertar el robot?
 on:
   push:
-    branches: [ "main" ] # Cuando subas código a la rama main
+    branches: [ "master" ] # Cuando subas código a la rama main
   pull_request:
-    branches: [ "main" ] # O cuando hagas un Pull Request hacia main
+    branches: [ "master" ] # O cuando hagas un Pull Request hacia main
 
 # 2. ¿Qué tareas va a realizar?
 jobs:
