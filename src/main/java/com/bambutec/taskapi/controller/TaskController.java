@@ -1,9 +1,11 @@
 package com.bambutec.taskapi.controller;
 
-import com.bambutec.taskapi.model.entity.Task;
+import com.bambutec.taskapi.dto.TaskRequest;
+import com.bambutec.taskapi.dto.TaskResponse;
 import com.bambutec.taskapi.model.TaskStatus;
 import com.bambutec.taskapi.model.entity.User;
-import com.bambutec.taskapi.service.imp.TaskServiceImp;
+import com.bambutec.taskapi.service.TaskService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,17 +18,42 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class TaskController {
 
-    private final TaskServiceImp taskService;
+    private final TaskService taskService;
+
+    @PostMapping
+    public ResponseEntity<TaskResponse> createTask(
+            @AuthenticationPrincipal User currentUser,
+            @Valid @RequestBody TaskRequest request) {
+
+        return ResponseEntity.ok(taskService.createTask(currentUser, request));
+    }
 
     @GetMapping
-    public ResponseEntity<Page<Task>> getTasks(
+    public ResponseEntity<Page<TaskResponse>> getTasks(
             @AuthenticationPrincipal User currentUser,
             @RequestParam(required = false) TaskStatus status,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
 
-        Page<Task> tasks = taskService.getTasks(currentUser, status, PageRequest.of(page, size));
+        Page<TaskResponse> tasks = taskService.getTasks(currentUser, status, PageRequest.of(page, size));
         return ResponseEntity.ok(tasks);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TaskResponse> getTaskById(
+            @PathVariable Long id,
+            @AuthenticationPrincipal User currentUser) {
+
+        return ResponseEntity.ok(taskService.getTaskById(id, currentUser));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TaskResponse> updateTask(
+            @PathVariable Long id,
+            @AuthenticationPrincipal User currentUser,
+            @Valid @RequestBody TaskRequest request) {
+
+        return ResponseEntity.ok(taskService.updateTask(id, request, currentUser));
     }
 
     @DeleteMapping("/{id}")

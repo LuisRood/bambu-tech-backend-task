@@ -1,6 +1,6 @@
 package com.bambutec.taskapi.dto;
 
-import jakarta.validation.constraints.NotBlank;
+import com.bambutec.taskapi.model.TaskStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,10 +10,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthRequest {
-    @NotBlank(message = "El usuario es requerido")
+public class TaskResponse {
+    private Long id;
+    private String title;
+    private String description;
+    private TaskStatus status;
+    private Long userId;
     private String username;
-
-    @NotBlank(message = "La contraseña es obligatoria")
-    private String password;
 }

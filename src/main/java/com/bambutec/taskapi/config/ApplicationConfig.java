@@ -40,6 +40,6 @@ public class ApplicationConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Encriptación obligatoria
+        return new BCryptPasswordEncoder();
     }
 }
