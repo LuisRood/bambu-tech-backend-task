@@ -31,6 +31,16 @@
         <sonar.projectKey>LuisRood_bambu-tech-backend-task</sonar.projectKey>
         <sonar.organization>luisrood</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+
+        <sonar.coverage.exclusions>
+            **/dto/**,
+            **/entity/**,
+            **/config/**,
+            **/security/**,
+            **/exception/**,
+            **/*Application.*
+        </sonar.coverage.exclusions>
     </properties>
     <dependencies>
         <dependency>
