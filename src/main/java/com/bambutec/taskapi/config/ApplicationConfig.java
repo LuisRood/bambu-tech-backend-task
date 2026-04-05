@@ -1,6 +1,7 @@
 package com.bambutec.taskapi.config;
 
 import com.bambutec.taskapi.repository.UserRepository;
+import com.bambutec.taskapi.exception.AuthenticationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +34,7 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws AuthenticationException {
         return config.getAuthenticationManager();
     }
 
