@@ -15,11 +15,11 @@ jobs:
     steps:
       # Paso A: El robot descarga tu código del repositorio
       - name: Descargar el código
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Paso B: El robot instala Java 17 en la computadora que nos prestaron
       - name: Instalar Java 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
