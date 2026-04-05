@@ -1,5 +1,6 @@
 package com.bambutec.taskapi.config;
 
+import com.bambutec.taskapi.exception.SecurityException;
 import com.bambutec.taskapi.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +24,7 @@ public class SecurityConfig {
     private final AuthenticationProvider authenticationProvider;
 
     @Bean
-        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws SecurityException {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
